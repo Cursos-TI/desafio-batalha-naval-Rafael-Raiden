@@ -1,40 +1,83 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+#define TAMANHO 10
+
+// Função para exibir o tabuleiro
+void exibirTabuleiro(int tabuleiro[TAMANHO][TAMANHO]) {
+    for (int i = 0; i < TAMANHO; i++) {
+        for (int j = 0; j < TAMANHO; j++) {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+// Função para aplicar habilidade Cruz
+void aplicarCruz(int tabuleiro[TAMANHO][TAMANHO], int x, int y) {
+    tabuleiro[x][y] = 1;
+    if (x > 0) tabuleiro[x - 1][y] = 1;
+    if (x < TAMANHO - 1) tabuleiro[x + 1][y] = 1;
+    if (y > 0) tabuleiro[x][y - 1] = 1;
+    if (y < TAMANHO - 1) tabuleiro[x][y + 1] = 1;
+}
+
+// Função para aplicar habilidade Octaedro
+void aplicarOctaedro(int tabuleiro[TAMANHO][TAMANHO], int x, int y) {
+    tabuleiro[x][y] = 1;
+    if (x > 0) tabuleiro[x - 1][y] = 1;
+    if (x < TAMANHO - 1) tabuleiro[x + 1][y] = 1;
+    if (y > 0) tabuleiro[x][y - 1] = 1;
+    if (y < TAMANHO - 1) tabuleiro[x][y + 1] = 1;
+    if (x > 1) tabuleiro[x - 2][y] = 1;
+    if (x < TAMANHO - 2) tabuleiro[x + 2][y] = 1;
+    if (y > 1) tabuleiro[x][y - 2] = 1;
+    if (y < TAMANHO - 2) tabuleiro[x][y + 2] = 1;
+}
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    int tabuleiro[TAMANHO][TAMANHO] = {0}; // Inicializa tabuleiro com 0
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
+    // Posicionamento de navios
+    tabuleiro[2][2] = 3; // Navio vertical
+    tabuleiro[3][2] = 3;
+    tabuleiro[4][2] = 3;
     
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    tabuleiro[6][4] = 3; // Navio horizontal
+    tabuleiro[6][5] = 3;
+    tabuleiro[6][6] = 3;
+    
+    tabuleiro[1][1] = 3; // Navio diagonal
+    tabuleiro[2][2] = 3;
+    tabuleiro[3][3] = 3;
+    
+    tabuleiro[7][3] = 3; // Outro navio diagonal
+    tabuleiro[8][4] = 3;
+    tabuleiro[9][5] = 3;
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    printf("Tabuleiro com navios posicionados:\n");
+    exibirTabuleiro(tabuleiro);
+
+    // Aplicação da habilidade Cone (posicionada na linha 5, coluna 5)
+    int x = 5, y = 5;
+    tabuleiro[x][y] = 1;
+    tabuleiro[x - 1][y] = 1;
+    tabuleiro[x - 1][y - 1] = 1;
+    tabuleiro[x - 1][y + 1] = 1;
+    tabuleiro[x - 2][y] = 1;
+    
+    printf("Tabuleiro com habilidade Cone aplicada:\n");
+    exibirTabuleiro(tabuleiro);
+    
+    // Aplicação da habilidade Cruz (posicionada na linha 3, coluna 3)
+    aplicarCruz(tabuleiro, 3, 3);
+    printf("Tabuleiro com habilidade Cruz aplicada:\n");
+    exibirTabuleiro(tabuleiro);
+    
+    // Aplicação da habilidade Octaedro (posicionada na linha 7, coluna 7)
+    aplicarOctaedro(tabuleiro, 7, 7);
+    printf("Tabuleiro com habilidade Octaedro aplicada:\n");
+    exibirTabuleiro(tabuleiro);
 
     return 0;
 }
